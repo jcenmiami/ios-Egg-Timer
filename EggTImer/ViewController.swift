@@ -12,10 +12,21 @@ class ViewController: UIViewController {
     
     var timer = Timer()
     
+    var time = 210
+    
     @IBOutlet weak var secondOutput: UILabel!
     
-    func processTimer() {
-        print("A second has passed.")
+    func decreaseTimer() {
+        
+        // Check if timer is greater than 0.
+        // Update timer subtracting every second.
+        if time > 0 {
+            time -= 1
+            secondOutput.text = String(time)
+        } else {
+            timer.invalidate()
+        }
+        
     }
 
     @IBAction func pauseButton(_ sender: Any) {
@@ -23,18 +34,24 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playButton(_ sender: Any) {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.processTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.decreaseTimer), userInfo: nil, repeats: true)
     }
     
     @IBAction func subtract10(_ sender: Any) {
+        time -= 10
+        secondOutput.text = String(time)
+        
     }
     
     @IBAction func resetButton(_ sender: Any) {
-        
+        timer.invalidate()
+        time = 210
+        secondOutput.text = String(time)
     }
     
     @IBAction func add10(_ sender: Any) {
-        
+        time += 10
+        secondOutput.text = String(time)
     }
     
     override func viewDidLoad() {
